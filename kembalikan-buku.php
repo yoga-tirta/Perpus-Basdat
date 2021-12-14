@@ -3,7 +3,6 @@
 require 'config.php';
 session_start();
 $idadmin = $_SESSION['idadmin'];
-echo $idadmin;
 ?>
 
 <?php
@@ -23,7 +22,7 @@ else{
 }
 $now = (date('Y-m-d'));
 // echo $days;
-$sql = mysqli_query($conn, "UPDATE tbltransaksi SET idadmin = 1, tgl_kembali = '$now', status =  'kembali', denda = 0 ,jumlah_denda = 0 WHERE  idtransaksi = $idtransaksi");
+$sql = mysqli_query($conn, "UPDATE tbltransaksi SET idadmin = '$idadmin', tgl_kembali = '$now', status =  'kembali', denda = 0 ,jumlah_denda = 0 WHERE  idtransaksi = $idtransaksi");
 echo $days.$jumlahDenda;
 if($sql){
     $buku = mysqli_query($conn, "SELECT * FROM tblitem WHERE idtransaksi = '$idtransaksi'");
