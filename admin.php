@@ -5,6 +5,7 @@ $koneksi = mysqli_connect("localhost", "root", "", "perpus");
 if (!isset($_SESSION['idadmin'])) {
   header("Location: login.php");
 }
+$adminName = $_SESSION['namaadmin'];
 
 if (isset($_POST['cari'])) {
   $keyword_admin = $_POST['keyword_admin'];
@@ -141,7 +142,7 @@ if (!$keyword_admin) {
             <!-- Profile -->
             <!-- ============================================================== -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-10" />Rama</a>
+              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-10" /><?= $adminName;?></a>
             </li>
           </ul>
         </div>
@@ -187,7 +188,7 @@ if (!$keyword_admin) {
             <div class="sidebar-footer">
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
+                <!-- item--><a href="logout.php" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
             <!-- End Bottom points-->
         </aside>
     <!-- ============================================================== -->
