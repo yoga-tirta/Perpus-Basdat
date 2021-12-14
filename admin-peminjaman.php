@@ -1,6 +1,7 @@
 <?php
-
+session_start();
 require 'config.php';
+$adminName = $_SESSION['namaadmin'];                    
 $data_buku = query("SELECT tbltransaksi.idtransaksi, tbltransaksi.tgl_pinjam, tbltransaksi.tgl_kembali, tbltransaksi.status, 
                     tbluser.nama FROM tbltransaksi INNER JOIN tbluser ON tbltransaksi.iduser=tbluser.iduser 
                     WHERE tbltransaksi.status = 'dipinjam';");
@@ -96,7 +97,7 @@ $data_buku = query("SELECT tbltransaksi.idtransaksi, tbltransaksi.tgl_pinjam, tb
                         <!-- Profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-10" />Admin</a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic m-r-10" /><?= $adminName; ?></a>
                         </li>
                     </ul>
                 </div>
@@ -148,7 +149,7 @@ $data_buku = query("SELECT tbltransaksi.idtransaksi, tbltransaksi.tgl_pinjam, tb
             <div class="sidebar-footer">
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
+                <!-- item--><a href="logout.php" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
             <!-- End Bottom points-->
         </aside>
         <!-- ============================================================== -->
