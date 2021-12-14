@@ -89,7 +89,7 @@ if(isset($_POST['update'])) {
             <tr>
                 <th>Aksi</th>
                 <th style="width:20%">Kode Buku</th>
-                <th style="width:60%">Judul Buku</th>
+                <th style="width:55%">Judul Buku</th>
                 <!-- <th>Price</th> -->
                 <th>Quantity</th>
                 
