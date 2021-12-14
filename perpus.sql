@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2021 at 04:36 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Dec 14, 2021 at 04:03 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,7 +42,9 @@ CREATE TABLE `tbladmin` (
 --
 
 INSERT INTO `tbladmin` (`idadmin`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
-(1, 'admin', 'admin123', 'Admin1', 'telang', '085158925522');
+(0, 'admin0', '123', 'admin0', 'telang', '085158925522'),
+(1, 'admin1', '123', 'admin', 'Bangkalan', '082382193122'),
+(2, 'admin2', '123', 'admin', 'Bangkalan', '0872312312312');
 
 -- --------------------------------------------------------
 
@@ -65,9 +67,9 @@ CREATE TABLE `tblbuku` (
 --
 
 INSERT INTO `tblbuku` (`idbuku`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
-(123, 'WPU', 'Padhika', '2109', 'Unpas', 10, '1.jpg'),
+(123, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
 (7708, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
-(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 51, '1.jpg');
+(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 50, '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -82,6 +84,14 @@ CREATE TABLE `tblitem` (
   `jumlah_pinjam` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tblitem`
+--
+
+INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUES
+(2, 5, 123, 1),
+(3, 6, 123, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -91,13 +101,21 @@ CREATE TABLE `tblitem` (
 CREATE TABLE `tbltransaksi` (
   `idtransaksi` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
-  `idadmin` int(10) NOT NULL,
+  `idadmin` int(10) NOT NULL DEFAULT '0',
   `tgl_pinjam` varchar(255) NOT NULL,
   `tgl_kembali` varchar(255) NOT NULL,
   `status` varchar(10) NOT NULL,
   `denda` int(20) NOT NULL,
   `jumlah_denda` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbltransaksi`
+--
+
+INSERT INTO `tbltransaksi` (`idtransaksi`, `iduser`, `idadmin`, `tgl_pinjam`, `tgl_kembali`, `status`, `denda`, `jumlah_denda`) VALUES
+(5, 3, 1, '2021-12-14', '2021-12-14', 'kembali', 0, '0'),
+(6, 3, 0, '2021-12-14', '2021-12-21', 'dipinjam', 0, '');
 
 -- --------------------------------------------------------
 
@@ -120,9 +138,8 @@ CREATE TABLE `tbluser` (
 
 INSERT INTO `tbluser` (`iduser`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
 (1, 'yoga', '123', 'Yoga Tirta Permana', 'Mojokerto', '081234567890'),
-(5, 'ramayad', '12345', 'Rama Priyadi', 'bangkalan', '123456789'),
-(6, 'teguh', 'teguh123', 'Teguh Budi', 'Lamongan', '123'),
-(8, 'admin', '123', 'Cahyo', 'sda', '123');
+(2, 'rama', '12345', 'Rama Priyadi', 'bangkalan', '123456789'),
+(3, 'teguh', '123', 'Teguh Budi', 'Lamongan', '082338563527');
 
 --
 -- Indexes for dumped tables
@@ -170,7 +187,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
-  MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tblbuku`
@@ -182,13 +199,13 @@ ALTER TABLE `tblbuku`
 -- AUTO_INCREMENT for table `tblitem`
 --
 ALTER TABLE `tblitem`
-  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbltransaksi`
 --
 ALTER TABLE `tbltransaksi`
-  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
