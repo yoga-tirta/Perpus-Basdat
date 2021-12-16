@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 04:03 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Dec 16, 2021 at 03:13 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -44,7 +43,10 @@ CREATE TABLE `tbladmin` (
 INSERT INTO `tbladmin` (`idadmin`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
 (0, 'admin0', '123', 'admin0', 'telang', '085158925522'),
 (1, 'admin1', '123', 'admin', 'Bangkalan', '082382193122'),
-(2, 'admin2', '123', 'admin', 'Bangkalan', '0872312312312');
+(2, 'admin2', '123', 'admin', 'Bangkalan', '0872312312312'),
+(5, 'coba', 'coba', 'coba', 'coba', '123'),
+(6, 'user', 'user', 'user', 'user', '123'),
+(7, 'test', 'test', 'test', 'test', '213');
 
 -- --------------------------------------------------------
 
@@ -69,7 +71,7 @@ CREATE TABLE `tblbuku` (
 INSERT INTO `tblbuku` (`idbuku`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
 (123, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
 (7708, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
-(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 50, '1.jpg');
+(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 52, '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -90,7 +92,8 @@ CREATE TABLE `tblitem` (
 
 INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUES
 (2, 5, 123, 1),
-(3, 6, 123, 1);
+(3, 6, 123, 1),
+(4, 7, 7710, 1);
 
 -- --------------------------------------------------------
 
@@ -101,21 +104,25 @@ INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUE
 CREATE TABLE `tbltransaksi` (
   `idtransaksi` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
-  `idadmin` int(10) NOT NULL DEFAULT '0',
+  `idadmin` int(10) NOT NULL DEFAULT 0,
   `tgl_pinjam` varchar(255) NOT NULL,
   `tgl_kembali` varchar(255) NOT NULL,
+  `tgl_bayar` varchar(255) NOT NULL DEFAULT '0',
   `status` varchar(10) NOT NULL,
   `denda` int(20) NOT NULL,
-  `jumlah_denda` varchar(255) NOT NULL
+  `jumlah_denda` varchar(255) NOT NULL DEFAULT '0',
+  `pembayaran` varchar(255) NOT NULL DEFAULT '0',
+  `kembalian` varchar(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbltransaksi`
 --
 
-INSERT INTO `tbltransaksi` (`idtransaksi`, `iduser`, `idadmin`, `tgl_pinjam`, `tgl_kembali`, `status`, `denda`, `jumlah_denda`) VALUES
-(5, 3, 1, '2021-12-14', '2021-12-14', 'kembali', 0, '0'),
-(6, 3, 0, '2021-12-14', '2021-12-21', 'dipinjam', 0, '');
+INSERT INTO `tbltransaksi` (`idtransaksi`, `iduser`, `idadmin`, `tgl_pinjam`, `tgl_kembali`, `tgl_bayar`, `status`, `denda`, `jumlah_denda`, `pembayaran`, `kembalian`) VALUES
+(5, 3, 1, '2021-12-07', '2021-12-14', '0', 'denda', 2, '1000', '0', '0'),
+(6, 3, 0, '2021-12-14', '2021-12-21', '0', 'dipinjam', 0, '0', '0', '0'),
+(7, 1, 1, '2021-12-08', '2021-12-16', '0', 'denda', 1, '500', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -139,7 +146,8 @@ CREATE TABLE `tbluser` (
 INSERT INTO `tbluser` (`iduser`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
 (1, 'yoga', '123', 'Yoga Tirta Permana', 'Mojokerto', '081234567890'),
 (2, 'rama', '12345', 'Rama Priyadi', 'bangkalan', '123456789'),
-(3, 'teguh', '123', 'Teguh Budi', 'Lamongan', '082338563527');
+(3, 'teguh', '123', 'Teguh Budi', 'Lamongan', '082338563527'),
+(9, 'test', 'test', 'test', 'test', '213');
 
 --
 -- Indexes for dumped tables
@@ -187,7 +195,7 @@ ALTER TABLE `tbluser`
 -- AUTO_INCREMENT for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
-  MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblbuku`
@@ -199,19 +207,19 @@ ALTER TABLE `tblbuku`
 -- AUTO_INCREMENT for table `tblitem`
 --
 ALTER TABLE `tblitem`
-  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbltransaksi`
 --
 ALTER TABLE `tbltransaksi`
-  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbluser`
 --
 ALTER TABLE `tbluser`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
