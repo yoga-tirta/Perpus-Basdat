@@ -57,4 +57,23 @@ elseif($_GET['act']=='updateuser'){
       echo "ERROR, data gagal diupdate". mysqli_error($conn);
   }
 }
+elseif($_GET['act']=='bayardenda'){
+    $idbayar = $_POST['idbayar'];
+    $nama = $_POST['nama'];
+    $denda = $_POST['denda'];
+    $password = $_POST['password'];
+    $notelp = $_POST['telpon'];
+    $alamat = $_POST['alamat'];
+  
+    //query update
+    $queryupdate = mysqli_query($conn, "UPDATE tblbayar SET username='$username' , password='$password' , nama='$nama' , alamat='$alamat' , notelp='$notelp' WHERE idadmin='$idadmin' ");
+  
+    if ($queryupdate) {
+        # credirect ke page index
+        header("location:bayar-denda.php");    
+    }
+    else{
+        echo "ERROR, pembayaran gagal". mysqli_error($conn);
+    }
+  }
 ?>

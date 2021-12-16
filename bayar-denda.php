@@ -191,8 +191,7 @@ $adminName = $_SESSION['namaadmin'];
                     <div class="box-header with-border">
                       <h3 class="box-title">List Denda</h3>
                       <div class="box-tools pull-left">
-                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#tambahuser"><i class="mdi mdi-cash"></i>  Pembayaran</a>
-                        <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="mdi mdi-check"></i> Sudah Bayar</a>
+                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#bayardenda"><i class="mdi mdi-cash"></i>  Pembayaran</a>
                       </div>
                     </div>
                     <div class="box-body">
@@ -202,8 +201,8 @@ $adminName = $_SESSION['namaadmin'];
                           <thead>
                             <tr>
                               <th>No.</th>
-                              <th>Judul buku</th>
-                              <th>User Peminjam</th>
+                              <th>ID Transaksi</th>
+                              <th>Nama Peminjam</th>
                               <th>Terlambat</th>
                               <th>Total Denda</th>
                               <th>Bayar</th>
@@ -213,25 +212,27 @@ $adminName = $_SESSION['namaadmin'];
                           <tbody>
                             <?php
                             $no = 1;
-                            $queryview = mysqli_query($koneksi, "SELECT * FROM tbltransaksi");
+                            $queryview = mysqli_query($koneksi, "SELECT tbltransaksi.*, tbluser.nama FROM tbltransaksi INNER JOIN tbluser ON tbltransaksi.iduser = tbluser.iduser");
                             while ($row = mysqli_fetch_assoc($queryview)) {
                             ?>
+                            
                               <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo $row['judul']; ?></td>
-                                <td><?php echo $row['iduser']; ?></td>
+                                <td><?php echo $row['idtransaksi']; ?></td>
+                                <td><?php echo $row['nama']; ?></td>
                                 <td><?php echo $row['denda']; ?> hari</td>
                                 <td><?php echo $row['jumlah_denda']; ?></td>
-                                <td><?php echo $row['']; ?></td>
-                                <td>
-                                  <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="mdi mdi-check"></i> Sudah Bayar</a>
+                                <td>-</td>
+                                <td><?php echo $row['status']; ?></td>
+                                <!-- <td> -->
+                                  <!-- <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="mdi mdi-check"></i> Sudah Bayar</a> -->
 
                                   <!-- modal delete -->
 
                                   <!-- modal delete -->
 
                                   <!-- modal update user -->
-                                  <div class="example-modal">
+                                  <!-- <div class="example-modal">
                                     <div id="updateuser<?php echo $no; ?>" class="modal fade" role="dialog" style="display:none;">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
@@ -294,7 +295,8 @@ $adminName = $_SESSION['namaadmin'];
                                           </div>
                                         </div>
                                       </div>
-                                    </div></div>
+                                    </div>
+                                  </div> -->
                                   <!-- modal update user -->
                                 </td>
                               </tr>
@@ -308,116 +310,68 @@ $adminName = $_SESSION['namaadmin'];
 
                     <!-- modal insert -->
                     <div class="example-modal">
-                      <div id="tambahuser" class="modal fade" role="dialog" style="display:none;">
+                      <div id="bayardenda" class="modal fade" role="dialog" style="display:none;">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <h3 class="modal-title">Tambah Admin</h3>
+                              <h3 class="modal-title">Transaksi Bayar</h3>
                             </div>
                             <div class="modal-body">
-                              <form action="function_admin.php?act=tambahuser" method="post" role="form">
-                                <div class="form-group">
-                                  <div class="row">
-                                    <label class="col-sm-3 control-label text-right"> Nama <span class="text-red">*</span></label>
-                                    <div class="col-sm-8"><input type="text" class="form-control" name="nama" placeholder="Nama" value=""></div>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row">
-                                    <label class="col-sm-3 control-label text-right">Username <span class="text-red">*</span></label>
-                                    <div class="col-sm-8"><input type="text" class="form-control" name="username" placeholder="Username" value=""></div>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row">
-                                    <label class="col-sm-3 control-label text-right">Password <span class="text-red">*</span></label>
-                                    <div class="col-sm-8"><input type="password" class="form-control" name="password" placeholder="Password" id="myPassword" value="">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row">
-                                    <label class="col-sm-3 control-label text-right">No Telepon <span class="text-red">*</span></label>
-                                    <div class="col-sm-8"><input type="text" class="form-control" name="notelp" placeholder="No Telepon" value=""></div>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="row">
-                                    <label class="col-sm-3 control-label text-right">Alamat <span class="text-red">*</span></label>
-                                    <div class="col-sm-8"><input type="text" class="form-control" name="alamat" placeholder="alamat" value=""></div>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button id="nosave" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                                  <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                                </div>
-                                <!--<div class="box-footer">
-                      <a href="../user/data_user.php" class="btn btn-danger"><i class="fa fa-close"></i> Batal</a>
-                      <input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-                    </div> /.box-footer -->
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div><!-- modal insert close -->
-                    <!-- modal update user -->
-                    <div class="example-modal">
-                      <div id="updateuser<?php echo $no; ?>" class="modal fade" role="dialog" style="display:none;">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <h3 class="modal-title">Edit Data Admin</h3>
-                            </div>
-                            <div class="modal-body">
-                              <form action="function_admin.php?act=updateuser" method="post" role="form">
+                              <form action="function_admin.php?act=bayardenda" method="post" role="form">
                                 <?php
-                                $idadmin = $row['idadmin'];
-                                $query = "SELECT * FROM tbladmin WHERE idadmin='$idadmin'";
-                                $result = mysqli_query($koneksi, $query);
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                $queryview = mysqli_query($koneksi, "SELECT tbltransaksi.*, tbluser.nama FROM tbltransaksi INNER JOIN tbluser ON tbltransaksi.iduser = tbluser.iduser WHERE tbltransaksi.status = 'denda' WHERE tbltransaksi.iduser = $idFromTrans");
+                                while ($row = mysqli_fetch_assoc($queryview)) {
                                 ?>
-                                  <div class="form-group">
+                                  <!-- <div class="form-group">
                                     <div class="row">
                                       <div class="col-sm-8"><input type="hidden" class="form-control" name="idadmin" placeholder="Idadmin" value="<?php echo $row['idadmin']; ?>"></div>
                                     </div>
-                                  </div>
-                                  <div class="form-group">
+                                  </div> -->
+                                  <!-- <div class="form-group">
                                     <div class="row">
-                                      <label class="col-sm-3 control-label text-right">Username <span class="text-red">*</span></label>
-                                      <div class="col-sm-8"><input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $row['username']; ?>"></div>
+                                      <label class="col-sm-3 control-label text-right">Nama User</label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $row['nama']; ?>"></div>
                                     </div>
-                                  </div>
+                                  </div> -->
                                   <div class="form-group">
                                     <div class="row">
-                                      <label class="col-sm-3 control-label text-right">Alamat <span class="text-red">*</span></label>
-                                      <div class="col-sm-8"><input type="text" class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $row['alamat']; ?>"></div>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <div class="row">
-                                      <label class="col-sm-3 control-label text-right">Nama <span class="text-red">*</span></label>
-                                      <div class="col-sm-8"><input type="text" class="form-control" name="nama" placeholder="Nama" value="<?php echo $row['nama']; ?>"></div>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <div class="row">
-                                      <label class="col-sm-3 control-label text-right">Telpon <span class="text-red">*</span></label>
-                                      <div class="col-sm-8"><input type="text" class="form-control" name="telpon" placeholder="Telpon" value="<?php echo $row['notelp']; ?>"></div>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <div class="row">
-                                      <label class="col-sm-3 control-label text-right">Password <span class="text-red">*</span></label>
-                                      <div class="col-sm-8"><input type="text" class="form-control" name="password" placeholder="Password" id="myPassword" value="<?php echo $row['password']; ?>">                                                      
+                                    <label class="col-sm-3 control-label text-right">Nama user</span></label>
+                                      <div class="col-sm-8">
+                                        <select name="role" class="form-control select2" style="width: 100%;">
+                                        <option value="User" selected="selected">-- Pilih User --</option>
+                                        <option value="<?php echo $row['nama']; ?>"></option></select>
                                       </div>
                                     </div>
-                                  </div>                                                
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Keterlambatan</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $row['denda']; ?> Hari"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Denda Yang Harus Dibayar</label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="nama" placeholder="Nama" value="<?php echo $row['jumlah_denda']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Bayar</label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="telpon" placeholder="Jumlah Uang"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Kembalian</label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="password" placeholder="">                                                      
+                                      </div>
+                                    </div>
+                                  </div> 
                                   <div class="modal-footer">
                                     <button id="noedit" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
-                                    <input type="submit" name="submit" class="btn btn-primary" value="Update">
+                                    <input type="submit" name="submit" class="btn btn-info" value="Bayar">
                                   </div>
                                 <?php
                                 }
@@ -427,8 +381,7 @@ $adminName = $_SESSION['namaadmin'];
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- modal update user -->
+                    </div><!-- modal insert close -->
                   </div>
                 </div>
               </div>
