@@ -1,7 +1,8 @@
 <?php
 
 require 'config.php';
-$data_buku = query("SELECT * FROM tblbuku");
+$data_buku = query("INSERT INTO tblbuku
+                    SELECT nama FROM tblsupplier;");
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +189,7 @@ $data_buku = query("SELECT * FROM tblbuku");
                                             <tr>
                                                 <th>No</th>
                                                 <th>Judul Buku</th>
+                                                <th>Supplier</th>
                                                 <th>Pengarang</th>
                                                 <th>Tahun Terbit</th>
                                                 <th>Penerbit</th>
@@ -202,6 +204,7 @@ $data_buku = query("SELECT * FROM tblbuku");
                                             <tr>
                                                 <td><?= $angka?></td>
                                                 <td><?= $row["judul"]?></td>
+                                                <td><?= $row["nama"]?></td>
                                                 <td><?= $row["pengarang"]?></td>
                                                 <td><?= $row["tahun_terbit"]?></td>
                                                 <td><?= $row["penerbit"]?></td>
