@@ -212,4 +212,60 @@ function hapus_user($id) {
 //==========================FUNCTION TABEL USER============================
 
 
+//==========================FUNCTION TABEL USER============================
+
+function tambah_sup($data) {
+    global $conn;
+    // ambil data tiap elemen
+    $nama = $data["nama"];
+    $alamat = $data["alamat"];
+    $notelp = $data["notelp"];
+    $email = $data["email"];
+
+    //query insert data
+    $query = "INSERT INTO tblsupplier
+            VALUES
+            ('', '$nama', '$alamat', '$notelp', '$email')
+        ";
+    mysqli_query($conn, $query);
+    //mengembalikan nilai apakah ada perubahan atau tidak
+    return mysqli_affected_rows($conn);
+}
+
+function ubah_sup($data) {
+    global $conn;
+    //var_dump($data["iduser"]);die;
+    // ambil data tiap elemen
+    $id = $data["idsupplier"];
+    $nama = $data["nama"];
+    $alamat = $data["alamat"];
+    $notelp = $data["notelp"];
+    $email = $data["email"];
+    
+    //query update data
+    $query = "UPDATE tblsupplier SET
+                nama = '$nama',
+                alamat = '$alamat',
+                notelp = '$notelp',
+                email = '$email'
+              WHERE idsupplier = '$id'
+        ";
+    // var_dump($query);die;
+    // proses ke database
+    mysqli_query($conn, $query);
+    //mengembalikan nilai apakah ada perubahan atau tidak
+    return mysqli_affected_rows($conn);
+}
+
+function hapus_sup($id) {
+    global $conn;
+    //hapus user
+    mysqli_query($conn, "DELETE FROM tblsupplier WHERE idsupplier=$id");
+    //mengembalikan nilai apakah ada perubahan atau tidak
+    //var_dump(mysqli_affected_rows($koneksi));die;
+    return mysqli_affected_rows($conn);
+}
+
+//==========================FUNCTION TABEL USER============================
+
 ?>

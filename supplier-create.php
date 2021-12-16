@@ -1,11 +1,24 @@
-<?php 
- 
-session_start();
- 
-if (!isset($_SESSION['idadmin'] )) {
-    header("Location: login.php");
+<?php
+require 'config.php';
+$koneksi = mysqli_connect("localhost", "root", "", "perpus");
+
+if (isset($_POST["submit"])) {
+
+    //cek apakah data berhasil ditambahkan
+    if (tambah_sup($_POST) > 0) {
+        echo "<script>
+                alert('Data berhasil ditambahkan')
+                document.location.href = 'supplier.php';
+              </script>
+            ";
+    } else {
+        echo "<script>
+                alert('Data gagal ditambahkan')
+                document.location.href = 'supplier.php';
+              </script>
+            ";
+    }
 }
- 
 ?>
 
 <!DOCTYPE html>
@@ -20,15 +33,9 @@ if (!isset($_SESSION['idadmin'] )) {
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Perpustakaan</title>
+    <title>Admin | Tambah Supplier</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- chartist CSS -->
-    <link href="assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <!--This page css - Morris CSS -->
-    <link href="assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -47,8 +54,7 @@ if (!isset($_SESSION['idadmin'] )) {
     <!-- ============================================================== -->
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-        </svg>
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
@@ -66,17 +72,15 @@ if (!isset($_SESSION['idadmin'] )) {
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-
+                            
                             <!-- Light Logo icon -->
                             <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
-
-                            <!-- Light Logo text -->
-                            <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                        </span>
-                    </a>
+                        
+                        <!-- Light Logo text -->    
+                        <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -93,8 +97,7 @@ if (!isset($_SESSION['idadmin'] )) {
                         <!-- ============================================================== -->
                         <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
                             <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a>
-                            </form>
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -123,25 +126,26 @@ if (!isset($_SESSION['idadmin'] )) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li><a class="waves-effect waves-dark" href="index.php" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                        <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin-list-buku.php" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Buku</span></a>
+                        <li> <a class="waves-effect waves-dark" href="admin-list-buku.php" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Buku</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin-peminjaman.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Peminjaman</span></a>
+                        <li> <a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin-kembali.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Pengembalian</span></a>
+                        <li> <a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Bayar Denda</span></a>
+                        <li> <a class="waves-effect waves-dark" href="supplier.php" aria-expanded="false"><i class="mdi mdi-dropbox"></i><span class="hide-menu">Supplier</span></a>
+                        </li><!--
+                        <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
+                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i class="mdi mdi-earth"></i><span class="hide-menu">Google Map</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
-                        </li>
-                        <li><a class="waves-effect waves-dark" href="supplier.php" aria-expanded="false"><i class="mdi mdi-dropbox"></i><span class="hide-menu">Supplier</span></a>
-                        </li>    
-                        <li><a class="waves-effect waves-dark" href="bayar-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a>
-                        </li>
+                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Error 404</span></a>
+                        </li> -->
                     </ul>
+                    <!-- <div class="text-center m-t-30">
+                        <a href="https://themewagon.com/themes/material-bootstrap-4-free-admin-template/" class="btn waves-effect waves-light btn-warning hidden-md-down">Download Now</a>
+                    </div> -->
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -150,8 +154,7 @@ if (!isset($_SESSION['idadmin'] )) {
             <div class="sidebar-footer">
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
                 <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
-            </div>
+                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
             <!-- End Bottom points-->
         </aside>
         <!-- ============================================================== -->
@@ -170,16 +173,15 @@ if (!isset($_SESSION['idadmin'] )) {
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text-themecolor">Dashboard</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Tambah Supplier</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Tambah Supplier</li>
                         </ol>
                     </div>
-                    <div class="col-md-7 col-4 align-self-center">
-                        <form action="" method="POST">
-                            <a href="logout.php" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Logout</a>
-                    </div>
+                    <!-- <div class="col-md-7 col-4 align-self-center">
+                        <a href="https://themewagon.com/themes/material-bootstrap-4-free-admin-template/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Download Now</a>
+                    </div> -->
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
@@ -188,8 +190,64 @@ if (!isset($_SESSION['idadmin'] )) {
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <!-- Row -->
-                <div class="row">                    
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="card">
+                            <div class="card-block">
+                                <center class="m-t-30"> <img src="assets/images/users/5.jpg" class="img-circle" width="150" />
+                                    <h4 class="card-title m-t-10">ADMIN</h4>
+                                    <h6 class="card-subtitle">Perpustakaan Umum</h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <!-- <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div> -->
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-block">
+                                <form method="post" action="" enctype="multipart/form-data" class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nama Supplier</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="nama" placeholder="Masukkan Nama Supplier" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Alamat</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="alamat" placeholder="Masukkan Alamat" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nomor Telepon</label>
+                                        <div class="col-md-12">
+                                            <input type="number" name="notelp" placeholder="Masukkan Nomor Telepon" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Email</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="email" placeholder="Masukkan Email" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button name="submit" class="btn btn-success">Tambah Data</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
                 </div>
+                <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -200,7 +258,9 @@ if (!isset($_SESSION['idadmin'] )) {
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2020 Perpustakaan Online </footer>
+            <footer class="footer">
+                © 2021 Perpustakaan Online
+            </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -229,17 +289,6 @@ if (!isset($_SESSION['idadmin'] )) {
     <script src="assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- This page plugins -->
-    <!-- ============================================================== -->
-    <!-- chartist chart -->
-    <script src="assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
-    <!--c3 JavaScript -->
-    <script src="assets/plugins/d3/d3.min.js"></script>
-    <script src="assets/plugins/c3-master/c3.min.js"></script>
-    <!-- Chart JS -->
-    <script src="js/dashboard1.js"></script>
 </body>
 
 </html>

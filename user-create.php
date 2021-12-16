@@ -133,6 +133,8 @@ if (isset($_POST["submit"])) {
                         <li> <a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
+                        </li>
+                        <li> <a class="waves-effect waves-dark" href="supplier.php" aria-expanded="false"><i class="mdi mdi-dropbox"></i><span class="hide-menu">Supplier</span></a>
                         </li><!--
                         <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a>
                         </li>
@@ -213,31 +215,31 @@ if (isset($_POST["submit"])) {
                                     <div class="form-group">
                                         <label class="col-md-12">Username</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="username" placeholder="ex. jokowi123" class="form-control form-control-line">
+                                            <input type="text" name="username" placeholder="username" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" name="password" placeholder="ex. jkw2periode" class="form-control form-control-line">
+                                            <input type="password" name="password" placeholder="password" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Nama Lengkap</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nama" placeholder="ex. Joko Widodo" class="form-control form-control-line">
+                                            <input type="text" name="nama" placeholder="nama" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Alamat</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="alamat" placeholder="ex. Bangkalan" class="form-control form-control-line">
+                                            <input type="text" name="alamat" placeholder="alamat" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Nomor Telepon</label>
                                         <div class="col-md-12">
-                                            <input type="number" name="notelp" placeholder="ex. 081234567890" class="form-control form-control-line">
+                                            <input type="number" name="notelp" placeholder="telepon" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
