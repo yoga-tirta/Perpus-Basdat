@@ -132,7 +132,8 @@ if (!isset($_SESSION['idadmin'] )) {
                         <li> <a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
-                        </li>                        
+                        </li>       
+                        <li> <a class="waves-effect waves-dark" href="bayar-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

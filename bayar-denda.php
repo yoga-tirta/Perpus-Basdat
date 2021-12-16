@@ -20,7 +20,7 @@ $adminName = $_SESSION['namaadmin'];
   <meta name="author" content="">
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-  <title>Admin</title>
+  <title>Pembayaran Denda</title>
   <!-- Bootstrap Core CSS -->
   <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- chartist CSS -->
@@ -164,10 +164,10 @@ $adminName = $_SESSION['namaadmin'];
         <!-- ============================================================== -->
         <div class="row page-titles">
           <div class="col-md-5 col-8 align-self-center">
-            <h3 class="text-themecolor">Data Admin</h3>
+            <h3 class="text-themecolor">Pembayaran Denda</h3>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-              <li class="breadcrumb-item active">Data Admin</li>
+              <li class="breadcrumb-item active">Bayar Denda</li>
             </ol>
           </div>
           <div class="col-md-7 col-4 align-self-center">
@@ -189,9 +189,10 @@ $adminName = $_SESSION['namaadmin'];
                 <div class="col-sm-12">
                   <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">List Data Admin</h3>
+                      <h3 class="box-title">List Denda</h3>
                       <div class="box-tools pull-left">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambahuser"><i class="fa fa-male"></i> Tambah Admin</a>
+                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#tambahuser"><i class="mdi mdi-cash"></i>  Pembayaran</a>
+                        <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="mdi mdi-check"></i> Sudah Bayar</a>
                       </div>
                     </div>
                     <div class="box-body">
@@ -201,52 +202,32 @@ $adminName = $_SESSION['namaadmin'];
                           <thead>
                             <tr>
                               <th>No.</th>
-                              <th>Nama</th>
-                              <th>Username</th>
-                              <th>Password</th>
-                              <th>No Telepon</th>
-                              <th>Alamat</th>
-                              <th>Opsi</th>
+                              <th>Judul buku</th>
+                              <th>User Peminjam</th>
+                              <th>Terlambat</th>
+                              <th>Total Denda</th>
+                              <th>Bayar</th>
+                              <th>Status</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                             $no = 1;
-                            $queryview = mysqli_query($koneksi, "SELECT * FROM tbladmin");
+                            $queryview = mysqli_query($koneksi, "SELECT * FROM tbltransaksi");
                             while ($row = mysqli_fetch_assoc($queryview)) {
                             ?>
                               <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo $row['nama']; ?></td>
-                                <td><?php echo $row['username']; ?></td>
-                                <td><?php echo $row['password']; ?></td>
-                                <td><?php echo $row['notelp']; ?></td>
-                                <td><?php echo $row['alamat']; ?></td>
+                                <td><?php echo $row['judul']; ?></td>
+                                <td><?php echo $row['iduser']; ?></td>
+                                <td><?php echo $row['denda']; ?> hari</td>
+                                <td><?php echo $row['jumlah_denda']; ?></td>
+                                <td><?php echo $row['']; ?></td>
                                 <td>
-                                  <!--<a href="../user/form_edituser.php?id=<?php echo $row['idadmin'] ?>" class="btn btn-primary btn-flat btn-xs"><i class="fa fa-pencil"></i> Edit</a>-->
-                                  <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="fa fa-pencil"></i> Edit</a>
-                                  <a href="#" class="btn btn-danger btn-flat btn-xs" data-toggle="modal" data-target="#deleteuser<?php echo $no; ?>"><i class="fa fa-trash"></i> Delete</a>
+                                  <a href="#" class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#updateuser<?php echo $no; ?>"><i class="mdi mdi-check"></i> Sudah Bayar</a>
 
                                   <!-- modal delete -->
-                                  <div class="example-modal">
-                                    <div id="deleteuser<?php echo $no; ?>" class="modal fade" role="dialog" style="display:none;">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h3 class="modal-title">Konfirmasi Delete Data Admin</h3>
-                                          </div>
-                                          <div class="modal-body">
-                                            <h4 align="center">Apakah anda yakin ingin menghapus admin id <?php echo $row['idadmin']; ?><strong><span class="grt"></span></strong> ?</h4>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button id="nodelete" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancle</button>
-                                            <a href="function_admin.php?act=deleteuser&idadmin=<?php echo $row['idadmin']; ?>" class="btn btn-primary">Delete</a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+
                                   <!-- modal delete -->
 
                                   <!-- modal update user -->
@@ -313,8 +294,8 @@ $adminName = $_SESSION['namaadmin'];
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </div><!-- modal update user -->
+                                    </div></div>
+                                  <!-- modal update user -->
                                 </td>
                               </tr>
                             <?php
@@ -381,6 +362,73 @@ $adminName = $_SESSION['namaadmin'];
                         </div>
                       </div>
                     </div><!-- modal insert close -->
+                    <!-- modal update user -->
+                    <div class="example-modal">
+                      <div id="updateuser<?php echo $no; ?>" class="modal fade" role="dialog" style="display:none;">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h3 class="modal-title">Edit Data Admin</h3>
+                            </div>
+                            <div class="modal-body">
+                              <form action="function_admin.php?act=updateuser" method="post" role="form">
+                                <?php
+                                $idadmin = $row['idadmin'];
+                                $query = "SELECT * FROM tbladmin WHERE idadmin='$idadmin'";
+                                $result = mysqli_query($koneksi, $query);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-sm-8"><input type="hidden" class="form-control" name="idadmin" placeholder="Idadmin" value="<?php echo $row['idadmin']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Username <span class="text-red">*</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $row['username']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Alamat <span class="text-red">*</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $row['alamat']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Nama <span class="text-red">*</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="nama" placeholder="Nama" value="<?php echo $row['nama']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Telpon <span class="text-red">*</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="telpon" placeholder="Telpon" value="<?php echo $row['notelp']; ?>"></div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="row">
+                                      <label class="col-sm-3 control-label text-right">Password <span class="text-red">*</span></label>
+                                      <div class="col-sm-8"><input type="text" class="form-control" name="password" placeholder="Password" id="myPassword" value="<?php echo $row['password']; ?>">                                                      
+                                      </div>
+                                    </div>
+                                  </div>                                                
+                                  <div class="modal-footer">
+                                    <button id="noedit" type="button" class="btn btn-danger pull-left" data-dismiss="modal">Batal</button>
+                                    <input type="submit" name="submit" class="btn btn-primary" value="Update">
+                                  </div>
+                                <?php
+                                }
+                                ?>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- modal update user -->
                   </div>
                 </div>
               </div>
