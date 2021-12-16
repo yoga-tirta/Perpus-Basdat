@@ -51,6 +51,29 @@ INSERT INTO `tbladmin` (`idadmin`, `username`, `password`, `nama`, `alamat`, `no
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblsupplier`
+--
+
+CREATE TABLE `tblsupplier` (
+  `idsupplier` int(50) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `notelp` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblsupplier`
+--
+
+INSERT INTO `tblsupplier` (`idsupplier`, `nama`, `alamat`, `notelp`, `email`) VALUES
+(1, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com'),
+(2, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com');
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblbuku`
 --
 
@@ -166,6 +189,12 @@ ALTER TABLE `tblbuku`
   ADD PRIMARY KEY (`idbuku`);
 
 --
+-- Indexes for table `tblsupplier`
+--
+ALTER TABLE `tblsupplier`
+  ADD PRIMARY KEY (`idsupplier`);
+
+--
 -- Indexes for table `tblitem`
 --
 ALTER TABLE `tblitem`
@@ -224,6 +253,12 @@ ALTER TABLE `tbluser`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tblsupplier`
+--
+ALTER TABLE `tblsupplier`
+  MODIFY `idsupplier` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for table `tblitem`
