@@ -34,6 +34,7 @@ function tambah($data) {
     
     global $conn;
     // ambil data tiap elemen
+    $idsupplier = $data["idsupplier"];
     $judul = $data["judul"];
     $pengarang = $data["pengarang"];
     $tahun = $data["tahun"];
@@ -49,7 +50,7 @@ function tambah($data) {
     //query insert data
     $query = "INSERT INTO tblbuku
             VALUES
-            ('', '$judul', '$pengarang', '$tahun', '$penerbit', '$jumlah_buku', '$sampul')
+            ('', '$idsupplier', '$judul', '$pengarang', '$tahun', '$penerbit', '$jumlah_buku', '$sampul')
         ";
     mysqli_query($conn, $query);
     //mengembalikan nilai apakah ada perubahan atau tidak
@@ -108,6 +109,7 @@ function ubah($data) {
     //var_dump($data);die;
     // ambil data tiap elemen
     $id = $data["idbuku"];
+    $idsupplier = $data["idsupplier"];
     $judul = $data["judul"];
     $pengarang = $data["pengarang"];
     $tahun = $data["tahun"];
@@ -125,6 +127,7 @@ function ubah($data) {
 
     //query update data
     $query = "UPDATE tblbuku SET
+                idsupplier = '$idsupplier',
                 judul = '$judul',
                 pengarang = '$pengarang',
                 tahun_terbit = '$tahun',
