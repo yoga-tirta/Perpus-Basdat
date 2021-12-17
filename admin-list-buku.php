@@ -1,8 +1,7 @@
 <?php
 
 require 'config.php';
-$data_buku = query("INSERT INTO tblbuku
-                    SELECT nama FROM tblsupplier;");
+$data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN tblsupplier ON tblbuku.idsupplier = tblsupplier.idsupplier");
 ?>
 
 <!DOCTYPE html>
