@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2021 at 07:53 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Dec 17, 2021 at 10:32 AM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -70,10 +71,16 @@ CREATE TABLE `tblbuku` (
 --
 
 INSERT INTO `tblbuku` (`idbuku`, `idsupplier`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
-(123, 1, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
-(7708, 1, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
-(7710, 1, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 52, '1.jpg'),
-(7712, 1, 'asdf', 'asdf', '213', 'asdf', 111, '1.jpg');
+(7714, 4, 'WPU', 'Pak Dhika', '2019', 'Unpas', 15, '5cm.png'),
+(7715, 1, 'asdfr', '123', '2019', 'Unpas1', 51, 'a744fb07bfc8e08ed3314689152d1662.png'),
+(7716, 6, 'asdfr', 'Pak Dhika', '2123', 'Unpas1', 12, '095ac2fad8f269ef5cfdbff57a2640c2.png'),
+(7717, 1, 'WPU1', 'Pak Dhika1', '2123', 'Unpas1', 11, '1.jpg'),
+(7718, 4, 'WPU2', 'Pak Dhika2', '123', 'Unpas2', 12, '5cm.png'),
+(7719, 6, 'WPU3', 'Pak Dhika3', '2123', 'Unpas3', 5, '7.jpg'),
+(7720, 7, 'WPU4', 'Pak Dhika4', '1234', 'Unpas4', 5, 'a744fb07bfc8e08ed3314689152d1662.png'),
+(7721, 7, 'WPU', 'Pak Dhika', '2019', 'Unpas', 15, '1.jpg'),
+(7722, 6, 'WPU5', 'Pak Dhika5', '2019', 'Unpas5', 125, '11430494_01bf3184_818f_4d60_80bd_9dd111a28f47_300_438.jpg'),
+(7723, 8, 'WPU6', 'Pak Dhika6', '123', 'Unpas6', 116, 'senibodoamat.jpg');
 
 -- --------------------------------------------------------
 
@@ -87,15 +94,6 @@ CREATE TABLE `tblitem` (
   `idbuku` int(11) NOT NULL,
   `jumlah_pinjam` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tblitem`
---
-
-INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUES
-(2, 5, 123, 1),
-(3, 6, 123, 1),
-(4, 7, 7710, 1);
 
 -- --------------------------------------------------------
 
@@ -116,8 +114,11 @@ CREATE TABLE `tblsupplier` (
 --
 
 INSERT INTO `tblsupplier` (`idsupplier`, `nama`, `alamat`, `notelp`, `email`) VALUES
-(1, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com'),
-(2, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com');
+(1, 'pt sejahtera', 'jalan asem2', '082134452', 'sejahtera@gmail.com'),
+(4, 'PT Trunojoyo', 'telang', '123123123123', 'utm@gmail.com'),
+(6, 'PT Sup1', 'telang', '123', 'sup1@gmail.com'),
+(7, 'PT Sup2', 'telang', '123', 'sub@gmai.com'),
+(8, 'PT sup3', 'telang', '123', 'admin@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -232,7 +233,7 @@ ALTER TABLE `tbladmin`
 -- AUTO_INCREMENT for table `tblbuku`
 --
 ALTER TABLE `tblbuku`
-  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7713;
+  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7724;
 
 --
 -- AUTO_INCREMENT for table `tblitem`
@@ -244,7 +245,7 @@ ALTER TABLE `tblitem`
 -- AUTO_INCREMENT for table `tblsupplier`
 --
 ALTER TABLE `tblsupplier`
-  MODIFY `idsupplier` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idsupplier` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbltransaksi`
