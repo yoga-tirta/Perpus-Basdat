@@ -1,5 +1,8 @@
 <?php
 require 'config.php';
+
+$supplier = query("SELECT * FROM tblsupplier");
+
 $koneksi = mysqli_connect("localhost", "root", "", "perpus");
 
 if (isset($_POST["submit"])) {
@@ -214,6 +217,16 @@ if (isset($_POST["submit"])) {
                         <div class="card">
                             <div class="card-block">
                                 <form method="post" action="" enctype="multipart/form-data" class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label style="font-size:15px;">Nama Supplier</label><br>
+                                        <select name="idsupplier" class="form-control">
+
+                                            <?php foreach ($supplier as $sup) : ?>
+                                                <option value="<?= $sup['idsupplier'] ?>"><?= $sup['nama'] ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Judul Buku</label>
                                         <div class="col-md-12">
