@@ -4,7 +4,8 @@ require 'config.php';
 //ambil id
 $id = $_GET["id"];
 $data_buku = query("SELECT * FROM tblbuku WHERE idbuku=$id");
-// var_dump($data_buku);die;
+
+$supplier = query("SELECT * FROM tblsupplier");
 
 $koneksi = mysqli_connect("localhost", "root", "", "perpus");
 
@@ -221,13 +222,23 @@ if (isset($_POST["submit"])) {
                             <div class="card-block">
                                 <form method="post" action="" enctype="multipart/form-data" class="form-horizontal form-material">
                                     <div class="form-group">
+                                        <label style="font-size:15px;">Nama Supplier</label><br>
+                                        <select name="idsupplier" class="form-control">
+
+                                            <?php foreach ($supplier as $sup) : ?>
+                                                <option <?php if ($data_buku[0]['idsupplier'] == $sup['idsupplier']) echo "selected" ?> value="<?php echo $sup['idsupplier'] ?>"><?php echo $sup['nama'] ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-12">Judul Buku</label>
                                         <div class="col-md-12">
                                         <input type="hidden" name="idbuku" value="<?= $data_buku[0]['idbuku']?>">
                                         <input type="hidden" name="sampulLama" value="<?= $data_buku[0]['sampul']?>">
                                             <input type="text" name="judul" placeholder="Cinta Surga" value="<?=  $data_buku['0']['judul']?>" class="form-control form-control-line">
                                         </div>
-                                    </div>
+                                    </div>                                    
                                     <div class="form-group">
                                         <label class="col-md-12">Pengarang</label>
                                         <div class="col-md-12">
