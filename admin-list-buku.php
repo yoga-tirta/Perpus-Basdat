@@ -117,15 +117,13 @@ $data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN t
                         </li>
                         <li><a class="waves-effect waves-dark" href="admin-kembali.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Pengembalian</span></a>
                         </li>
-                        <li><a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Bayar Denda</span></a>
+                        <li><a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a>
                         </li>
                         <li><a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
                         <li><a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
                         </li>
                         <li><a class="waves-effect waves-dark" href="supplier.php" aria-expanded="false"><i class="mdi mdi-dropbox"></i><span class="hide-menu">Supplier</span></a>
-                        </li>    
-                        <li><a class="waves-effect waves-dark" href="bayar-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a>
                         </li>
                     </ul>
                 </nav>
