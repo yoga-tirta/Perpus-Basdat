@@ -120,7 +120,7 @@ $adminName = $_SESSION['namaadmin'];
                         <li> <a class="waves-effect waves-dark" href="admin-list-buku.php" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Buku</span></a>
                         <li> <a class="waves-effect waves-dark" href="admin-peminjaman.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Peminjaman</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="admin-kembali.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Pengembalian</span></a></li></li>
-                        <li> <a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Bayar Denda</span></a></li></li>
+                        <li> <a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a></li></li>
                         <li> <a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
                         </li>
                         <li> <a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
@@ -221,7 +221,7 @@ $adminName = $_SESSION['namaadmin'];
                                                 <th>Status</th>
                                                 <th>Denda</th>
                                                 <th>Pembayaran</th>
-                                                <th>Kembali</th>
+                                                <th>Kembalian</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
