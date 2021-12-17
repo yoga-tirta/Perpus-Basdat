@@ -126,24 +126,23 @@ if (isset($_POST["submit"])) {
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                        <li><a class="waves-effect waves-dark" href="index.php" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="admin-list-buku.php" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Buku</span></a>
+                        <li><a class="waves-effect waves-dark" href="admin-list-buku.php" aria-expanded="false"><i class="mdi mdi-book"></i><span class="hide-menu">Buku</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
+                        <li><a class="waves-effect waves-dark" href="admin-peminjaman.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Peminjaman</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
-                        </li><!--
-                        <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a>
+                        <li><a class="waves-effect waves-dark" href="admin-kembali.php" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Pengembalian</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i class="mdi mdi-earth"></i><span class="hide-menu">Google Map</span></a>
+                        <li><a class="waves-effect waves-dark" href="admin-denda.php" aria-expanded="false"><i class="mdi mdi-cash-100"></i><span class="hide-menu">Bayar Denda</span></a>
                         </li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Error 404</span></a>
-                        </li> -->
+                        <li><a class="waves-effect waves-dark" href="user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a>
+                        </li>
+                        <li><a class="waves-effect waves-dark" href="admin.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Admin</span></a>
+                        </li>
+                        <li><a class="waves-effect waves-dark" href="supplier.php" aria-expanded="false"><i class="mdi mdi-dropbox"></i><span class="hide-menu">Supplier</span></a>
+                        </li>
                     </ul>
-                    <!-- <div class="text-center m-t-30">
-                        <a href="https://themewagon.com/themes/material-bootstrap-4-free-admin-template/" class="btn waves-effect waves-light btn-warning hidden-md-down">Download Now</a>
-                    </div> -->
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -213,31 +212,31 @@ if (isset($_POST["submit"])) {
                                     <div class="form-group">
                                         <label class="col-md-12">Username</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="username" placeholder="ex. jokowi123" class="form-control form-control-line">
+                                            <input type="text" name="username" placeholder="username" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <input type="password" name="password" placeholder="ex. jkw2periode" class="form-control form-control-line">
+                                            <input type="password" name="password" placeholder="password" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Nama Lengkap</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nama" placeholder="ex. Joko Widodo" class="form-control form-control-line">
+                                            <input type="text" name="nama" placeholder="nama" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Alamat</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="alamat" placeholder="ex. Bangkalan" class="form-control form-control-line">
+                                            <input type="text" name="alamat" placeholder="alamat" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Nomor Telepon</label>
                                         <div class="col-md-12">
-                                            <input type="number" name="notelp" placeholder="ex. 081234567890" class="form-control form-control-line">
+                                            <input type="number" name="notelp" placeholder="telepon" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">

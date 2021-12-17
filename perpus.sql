@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2021 at 03:13 PM
+-- Generation Time: Dec 17, 2021 at 07:53 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -56,6 +56,7 @@ INSERT INTO `tbladmin` (`idadmin`, `username`, `password`, `nama`, `alamat`, `no
 
 CREATE TABLE `tblbuku` (
   `idbuku` int(11) NOT NULL,
+  `idsupplier` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `pengarang` varchar(255) NOT NULL,
   `tahun_terbit` varchar(255) NOT NULL,
@@ -68,10 +69,11 @@ CREATE TABLE `tblbuku` (
 -- Dumping data for table `tblbuku`
 --
 
-INSERT INTO `tblbuku` (`idbuku`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
-(123, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
-(7708, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
-(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 52, '1.jpg');
+INSERT INTO `tblbuku` (`idbuku`, `idsupplier`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
+(123, 1, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
+(7708, 1, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
+(7710, 1, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 52, '1.jpg'),
+(7712, 1, 'asdf', 'asdf', '213', 'asdf', 111, '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -94,6 +96,28 @@ INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUE
 (2, 5, 123, 1),
 (3, 6, 123, 1),
 (4, 7, 7710, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsupplier`
+--
+
+CREATE TABLE `tblsupplier` (
+  `idsupplier` int(50) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `notelp` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblsupplier`
+--
+
+INSERT INTO `tblsupplier` (`idsupplier`, `nama`, `alamat`, `notelp`, `email`) VALUES
+(1, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com'),
+(2, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -163,7 +187,8 @@ ALTER TABLE `tbladmin`
 -- Indexes for table `tblbuku`
 --
 ALTER TABLE `tblbuku`
-  ADD PRIMARY KEY (`idbuku`);
+  ADD PRIMARY KEY (`idbuku`),
+  ADD KEY `idsupplier` (`idsupplier`);
 
 --
 -- Indexes for table `tblitem`
@@ -172,6 +197,12 @@ ALTER TABLE `tblitem`
   ADD PRIMARY KEY (`iditem`),
   ADD KEY `idtransaksi` (`idtransaksi`),
   ADD KEY `idbuku` (`idbuku`);
+
+--
+-- Indexes for table `tblsupplier`
+--
+ALTER TABLE `tblsupplier`
+  ADD PRIMARY KEY (`idsupplier`);
 
 --
 -- Indexes for table `tbltransaksi`
@@ -201,13 +232,19 @@ ALTER TABLE `tbladmin`
 -- AUTO_INCREMENT for table `tblbuku`
 --
 ALTER TABLE `tblbuku`
-  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7711;
+  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7713;
 
 --
 -- AUTO_INCREMENT for table `tblitem`
 --
 ALTER TABLE `tblitem`
   MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tblsupplier`
+--
+ALTER TABLE `tblsupplier`
+  MODIFY `idsupplier` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbltransaksi`
@@ -224,6 +261,12 @@ ALTER TABLE `tbluser`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tblbuku`
+--
+ALTER TABLE `tblbuku`
+  ADD CONSTRAINT `idsupplier` FOREIGN KEY (`idsupplier`) REFERENCES `tblsupplier` (`idsupplier`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tblitem`

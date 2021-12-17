@@ -1,7 +1,24 @@
 <?php
-
 require 'config.php';
-$data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN tblsupplier ON tblbuku.idsupplier = tblsupplier.idsupplier");
+$koneksi = mysqli_connect("localhost", "root", "", "perpus");
+
+if (isset($_POST["submit"])) {
+
+    //cek apakah data berhasil ditambahkan
+    if (tambah_sup($_POST) > 0) {
+        echo "<script>
+                alert('Data berhasil ditambahkan')
+                document.location.href = 'supplier.php';
+              </script>
+            ";
+    } else {
+        echo "<script>
+                alert('Data gagal ditambahkan')
+                document.location.href = 'supplier.php';
+              </script>
+            ";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +33,7 @@ $data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN t
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Admin | Buku</title>
+    <title>Admin | Tambah Supplier</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -55,7 +72,7 @@ $data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN t
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-
+                            
                             <!-- Light Logo icon -->
                             <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                         </b>
@@ -153,74 +170,81 @@ $data_buku = query("SELECT tblbuku.*, tblsupplier.nama FROM tblbuku INNER JOIN t
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Tabel Buku</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Tambah Supplier</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Table Buku</li>
+                            <li class="breadcrumb-item active">Tambah Supplier</li>
                         </ol>
                     </div>
                     <!-- <div class="col-md-7 col-4 align-self-center">
                         <a href="https://themewagon.com/themes/material-bootstrap-4-free-admin-template/" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Download Now</a>
                     </div> -->
-                    <div class="col-md-7 col-4 align-self-center">
-                        <a href="admin-tambah-buku.php" class="btn waves-effect waves-light btn-danger pull-right hidden-sm-down">Tambah Buku</a>
                 </div>
-                </div>
-
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+                <!-- Row -->
                 <div class="row">
-                    <!-- column -->
-                    <div class="col-lg-12">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">List Buku</h4>
-                                <!-- <h6 class="card-subtitle">Add class <code>.table</code></h6> -->
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Judul Buku</th>
-                                                <th>Supplier</th>
-                                                <th>Pengarang</th>
-                                                <th>Tahun Terbit</th>
-                                                <th>Penerbit</th>
-                                                <th>Jumlah Buku</th>
-                                                <th>Gambar</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <?php $angka = 1; ?>
-                                        <?php foreach($data_buku as $row): ?>
-                                        <tbody>
-                                            <tr>
-                                                <td><?= $angka?></td>
-                                                <td><?= $row["judul"]?></td>
-                                                <td><?= $row["nama"]?></td>
-                                                <td><?= $row["pengarang"]?></td>
-                                                <td><?= $row["tahun_terbit"]?></td>
-                                                <td><?= $row["penerbit"]?></td>
-                                                <td><?= $row["jumlah_buku"]?></td>
-                                                <td><img src="foto/<?= $row["sampul"]?>" width="100"></td>
-                                                <td><a href="admin-edit-buku.php?id=<?= $row['idbuku']?>"><i class="mdi mdi-table-edit"></i></a>
-                                                <a href="admin-hapus-buku.php?id=<?= $row['idbuku']?>"><i class="mdi mdi-delete"></i></a>
-                                                
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <?php $angka++;?>
-                                        <?php endforeach;?>
-                                    </table>
-                                </div>
+                                <center class="m-t-30"> <img src="assets/images/users/5.jpg" class="img-circle" width="150" />
+                                    <h4 class="card-title m-t-10">ADMIN</h4>
+                                    <h6 class="card-subtitle">Perpustakaan Umum</h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <!-- <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div> -->
+                                    </div>
+                                </center>
                             </div>
                         </div>
                     </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-block">
+                                <form method="post" action="" enctype="multipart/form-data" class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nama Supplier</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="nama" placeholder="Masukkan Nama Supplier" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Alamat</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="alamat" placeholder="Masukkan Alamat" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nomor Telepon</label>
+                                        <div class="col-md-12">
+                                            <input type="number" name="notelp" placeholder="Masukkan Nomor Telepon" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Email</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="email" placeholder="Masukkan Email" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button name="submit" class="btn btn-success">Tambah Data</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
                 </div>
+                <!-- Row -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->

@@ -6,7 +6,7 @@ $iduser = $_SESSION['iduser'];
 //Simpan pesanan baru
 $now = date('Y-m-d');
 $toWeek = date( "Y-m-d", strtotime( "$now +1 week" ) );
-$sql1 = "INSERT INTO tbltransaksi VALUES ('', '$iduser', '', '$now', '$toWeek', '', 'dipinjam', 0,'', '', '' )";
+$sql1 = "INSERT INTO tbltransaksi VALUES ('', '$iduser', '', '$now', '$toWeek', 'dipinjam', 0,'' )";
 if(mysqli_query($conn, $sql1)){
 
     $sql2 = mysqli_query($conn, "SELECT max(idtransaksi) AS last FROM tbltransaksi");
