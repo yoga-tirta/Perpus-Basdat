@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2021 at 07:53 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Waktu pembuatan: 17 Des 2021 pada 19.45
+-- Versi server: 10.4.22-MariaDB
+-- Versi PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbladmin`
+-- Struktur dari tabel `tbladmin`
 --
 
 CREATE TABLE `tbladmin` (
@@ -37,26 +37,22 @@ CREATE TABLE `tbladmin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbladmin`
+-- Dumping data untuk tabel `tbladmin`
 --
 
 INSERT INTO `tbladmin` (`idadmin`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
 (0, 'admin0', '123', 'admin0', 'telang', '085158925522'),
 (1, 'admin1', '123', 'admin', 'Bangkalan', '082382193122'),
-(2, 'admin2', '123', 'admin', 'Bangkalan', '0872312312312'),
-(5, 'coba', 'coba', 'coba', 'coba', '123'),
-(6, 'user', 'user', 'user', 'user', '123'),
-(7, 'test', 'test', 'test', 'test', '213');
+(2, 'admin2', '123', 'admin', 'Bangkalan', '0872312312312');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblbuku`
+-- Struktur dari tabel `tblbuku`
 --
 
 CREATE TABLE `tblbuku` (
   `idbuku` int(11) NOT NULL,
-  `idsupplier` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `pengarang` varchar(255) NOT NULL,
   `tahun_terbit` varchar(255) NOT NULL,
@@ -66,19 +62,18 @@ CREATE TABLE `tblbuku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tblbuku`
+-- Dumping data untuk tabel `tblbuku`
 --
 
-INSERT INTO `tblbuku` (`idbuku`, `idsupplier`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
-(123, 1, 'WPU', 'Padhika', '2109', 'Unpas', 9, '1.jpg'),
-(7708, 1, 'WPU', 'Pak Dhika', '2019', 'Unpas', 5, '2.jpg'),
-(7710, 1, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 52, '1.jpg'),
-(7712, 1, 'asdf', 'asdf', '213', 'asdf', 111, '1.jpg');
+INSERT INTO `tblbuku` (`idbuku`, `judul`, `pengarang`, `tahun_terbit`, `penerbit`, `jumlah_buku`, `sampul`) VALUES
+(123, 'WPU', 'Padhika', '2109', 'Unpas', 5, '1.jpg'),
+(7708, 'WPU', 'Pak Dhika', '2019', 'Unpas', 0, '2.jpg'),
+(7710, 'WPU1', 'Pak Dhika1', 'qwe1', 'Unpas1', 41, '1.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblitem`
+-- Struktur dari tabel `tblitem`
 --
 
 CREATE TABLE `tblitem` (
@@ -89,40 +84,24 @@ CREATE TABLE `tblitem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tblitem`
+-- Dumping data untuk tabel `tblitem`
 --
 
 INSERT INTO `tblitem` (`iditem`, `idtransaksi`, `idbuku`, `jumlah_pinjam`) VALUES
 (2, 5, 123, 1),
 (3, 6, 123, 1),
-(4, 7, 7710, 1);
+(4, 7, 7710, 1),
+(5, 8, 7710, 2),
+(6, 9, 7708, 5),
+(7, 10, 123, 4),
+(8, 14, 7710, 3),
+(9, 15, 7710, 6),
+(10, 16, 123, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblsupplier`
---
-
-CREATE TABLE `tblsupplier` (
-  `idsupplier` int(50) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `alamat` varchar(255) NOT NULL,
-  `notelp` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tblsupplier`
---
-
-INSERT INTO `tblsupplier` (`idsupplier`, `nama`, `alamat`, `notelp`, `email`) VALUES
-(1, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com'),
-(2, 'pt sejahtera', 'jalan asem', '082134452', 'sejahtera@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbltransaksi`
+-- Struktur dari tabel `tbltransaksi`
 --
 
 CREATE TABLE `tbltransaksi` (
@@ -140,18 +119,25 @@ CREATE TABLE `tbltransaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbltransaksi`
+-- Dumping data untuk tabel `tbltransaksi`
 --
 
 INSERT INTO `tbltransaksi` (`idtransaksi`, `iduser`, `idadmin`, `tgl_pinjam`, `tgl_kembali`, `tgl_bayar`, `status`, `denda`, `jumlah_denda`, `pembayaran`, `kembalian`) VALUES
-(5, 3, 1, '2021-12-07', '2021-12-14', '0', 'denda', 2, '1000', '0', '0'),
-(6, 3, 0, '2021-12-14', '2021-12-21', '0', 'dipinjam', 0, '0', '0', '0'),
-(7, 1, 1, '2021-12-08', '2021-12-16', '0', 'denda', 1, '500', '0', '0');
+(5, 3, 1, '2021-12-07', '2021-12-14', '2021-12-17', 'lunas', 2, '1000', '2000', '1000'),
+(6, 3, 0, '2021-12-14', '2021-12-17', '2021-12-11', 'kembali', 0, '0', '0', '0'),
+(7, 1, 1, '2021-12-08', '2021-12-16', '2021-12-10', 'lunas', 0, '500', '500', '0'),
+(8, 2, 0, '2021-12-17', '2021-12-24', '2021-12-09', 'lunas', 0, '2000', '2000', '0'),
+(9, 3, 0, '2021-12-17', '2021-12-24', '2021-12-19', 'lunas', 0, '3000', '3000', '0'),
+(10, 1, 0, '2021-12-17', '2021-12-24', '', 'denda', 0, '1500', '', ''),
+(13, 2, 0, '2021-12-11', '2021-12-22', '', 'dipinjam', 0, '0', '0', '0'),
+(14, 2, 0, '2021-12-17', '2021-12-24', '', 'denda', 5, '2500', '', ''),
+(15, 2, 0, '2021-12-17', '2021-12-24', '', 'dipinjam', 0, '', '', ''),
+(16, 2, 0, '2021-12-17', '2021-12-24', '', 'denda', 4, '2000', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbluser`
+-- Struktur dari tabel `tbluser`
 --
 
 CREATE TABLE `tbluser` (
@@ -164,7 +150,7 @@ CREATE TABLE `tbluser` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbluser`
+-- Dumping data untuk tabel `tbluser`
 --
 
 INSERT INTO `tbluser` (`iduser`, `username`, `password`, `nama`, `alamat`, `notelp`) VALUES
@@ -178,20 +164,19 @@ INSERT INTO `tbluser` (`iduser`, `username`, `password`, `nama`, `alamat`, `note
 --
 
 --
--- Indexes for table `tbladmin`
+-- Indeks untuk tabel `tbladmin`
 --
 ALTER TABLE `tbladmin`
   ADD PRIMARY KEY (`idadmin`);
 
 --
--- Indexes for table `tblbuku`
+-- Indeks untuk tabel `tblbuku`
 --
 ALTER TABLE `tblbuku`
-  ADD PRIMARY KEY (`idbuku`),
-  ADD KEY `idsupplier` (`idsupplier`);
+  ADD PRIMARY KEY (`idbuku`);
 
 --
--- Indexes for table `tblitem`
+-- Indeks untuk tabel `tblitem`
 --
 ALTER TABLE `tblitem`
   ADD PRIMARY KEY (`iditem`),
@@ -199,13 +184,7 @@ ALTER TABLE `tblitem`
   ADD KEY `idbuku` (`idbuku`);
 
 --
--- Indexes for table `tblsupplier`
---
-ALTER TABLE `tblsupplier`
-  ADD PRIMARY KEY (`idsupplier`);
-
---
--- Indexes for table `tbltransaksi`
+-- Indeks untuk tabel `tbltransaksi`
 --
 ALTER TABLE `tbltransaksi`
   ADD PRIMARY KEY (`idtransaksi`),
@@ -213,70 +192,58 @@ ALTER TABLE `tbltransaksi`
   ADD KEY `iduser` (`iduser`);
 
 --
--- Indexes for table `tbluser`
+-- Indeks untuk tabel `tbluser`
 --
 ALTER TABLE `tbluser`
   ADD PRIMARY KEY (`iduser`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbladmin`
+-- AUTO_INCREMENT untuk tabel `tbladmin`
 --
 ALTER TABLE `tbladmin`
   MODIFY `idadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tblbuku`
+-- AUTO_INCREMENT untuk tabel `tblbuku`
 --
 ALTER TABLE `tblbuku`
-  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7713;
+  MODIFY `idbuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7711;
 
 --
--- AUTO_INCREMENT for table `tblitem`
+-- AUTO_INCREMENT untuk tabel `tblitem`
 --
 ALTER TABLE `tblitem`
-  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tblsupplier`
---
-ALTER TABLE `tblsupplier`
-  MODIFY `idsupplier` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tbltransaksi`
+-- AUTO_INCREMENT untuk tabel `tbltransaksi`
 --
 ALTER TABLE `tbltransaksi`
-  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idtransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `tbluser`
+-- AUTO_INCREMENT untuk tabel `tbluser`
 --
 ALTER TABLE `tbluser`
   MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `tblbuku`
---
-ALTER TABLE `tblbuku`
-  ADD CONSTRAINT `idsupplier` FOREIGN KEY (`idsupplier`) REFERENCES `tblsupplier` (`idsupplier`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tblitem`
+-- Ketidakleluasaan untuk tabel `tblitem`
 --
 ALTER TABLE `tblitem`
   ADD CONSTRAINT `tblitem_ibfk_1` FOREIGN KEY (`idtransaksi`) REFERENCES `tbltransaksi` (`idtransaksi`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tblitem_ibfk_2` FOREIGN KEY (`idbuku`) REFERENCES `tblbuku` (`idbuku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbltransaksi`
+-- Ketidakleluasaan untuk tabel `tbltransaksi`
 --
 ALTER TABLE `tbltransaksi`
   ADD CONSTRAINT `idadmin` FOREIGN KEY (`idadmin`) REFERENCES `tbladmin` (`idadmin`),
