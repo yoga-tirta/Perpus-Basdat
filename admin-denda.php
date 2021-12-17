@@ -212,7 +212,7 @@ $adminName = $_SESSION['namaadmin'];
                                                 <th>Status</th>
                                                 <th>Denda</th>
                                                 <th>Pembayaran</th>
-                                                <th>Kembali</th>
+                                                <th>Kembalian</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
